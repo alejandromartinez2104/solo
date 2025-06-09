@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sung Jin Woo - Shadow Monarch</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* System UI Elements */
+        .system-border {
+            border: 2px solid #6c5ce7;
+            border-radius: 8px;
+            background: rgba(108, 92, 231, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .system-border::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe, #6c5ce7);
+            border-radius: 8px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 2px solid #6c5ce7;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #6c5ce7;
+            text-shadow: 0 0 20px #6c5ce7;
+        }
+
+        .system-stats {
+            display: flex;
+            gap: 2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #a29bfe;
+            font-size: 0.7rem;
+        }
+
+        .stat-value {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://hebbkx1anhila5yf.public.blob.vercel-storage.com/main-qimg-e51bdd936c2f11155a0a856365226ccd-lq.jpg-EPH1gCqavbsGvM1X85NVyYhaV0083t.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px #6c5ce7;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 30px #6c5ce7; }
+            100% { text-shadow: 0 0 50px #6c5ce7, 0 0 70px #a29bfe; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            color: #a29bfe;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .system-notification {
+            background: rgba(108, 92, 231, 0.2);
+            border: 1px solid #6c5ce7;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 2rem auto;
+            max-width: 400px;
+            font-family: 'Orbitron', monospace;
+            animation: notification 3s ease-in-out infinite;
+        }
+
+        @keyframes notification {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 4rem 0;
+        }
+
+        /* Section Headers */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px #6c5ce7;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #a29bfe;
+            font-weight: 400;
+        }
+
+        /* About Section */
+        .about {
+            background: rgba(26, 26, 46, 0.3);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.3);
+        }
+
+        /* Abilities Section */
+        .abilities {
+            background: rgba(22, 33, 62, 0.3);
+        }
+
+        .abilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ability-card {
+            background: rgba(108, 92, 231, 0.1);
+            border: 1px solid #6c5ce7;
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ability-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .ability-card:hover::before {
+            left: 100%;
+        }
+
+        .ability-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.4);
+        }
+
+        .ability-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .ability-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+        }
+
+        .ability-description {
+            color: #a29bfe;
+            line-height: 1.6;
+        }
+
+        /* Shadow Soldiers Section */
+        .shadow-soldiers {
+            background: rgba(10, 10, 10, 0.5);
+        }
+
+        .soldiers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .soldier-card {
+            background: linear-gradient(145deg, rgba(108, 92, 231, 0.1), rgba(162, 155, 254, 0.05));
+            border: 2px solid #6c5ce7;
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .soldier-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(108, 92, 231, 0.5);
+        }
+
+        .soldier-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 2px solid #a29bfe;
+        }
+
+        .soldier-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #6c5ce7;
+            margin-bottom: 0.5rem;
+        }
+
+        .soldier-rank {
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .soldier-description {
+            color: #a29bfe;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* System Window */
+        .system-window {
+            background: rgba(10, 10, 10, 0.9);
+            border: 2px solid #6c5ce7;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-family: 'Orbitron', monospace;
+            box-shadow: 0 0 30px rgba(108, 92, 231, 0.5);
+        }
+
+        .system-header {
+            color: #6c5ce7;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #6c5ce7;
+            padding-bottom: 0.5rem;
+        }
+
+        .system-content {
+            color: #ffffff;
+            line-height: 1.8;
+        }
+
+        /* Dungeons Section */
+        .dungeons {
+            background: rgba(26, 26, 46, 0.3);
+        }
+
+        .dungeons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dungeon-card {
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid #6c5ce7;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dungeon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(108, 92, 231, 0.4);
+        }
+
+        .dungeon-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .dungeon-content {
+            padding: 1.5rem;
+        }
+
+        .dungeon-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #6c5ce7;
+            margin-bottom: 0.5rem;
+        }
+
+        .dungeon-difficulty {
+            color: #ff5e7d;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .dungeon-description {
+            color: #a29bfe;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 10, 0.9);
+            border-top: 2px solid #6c5ce7;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .system-stats {
+                gap: 1rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .abilities-grid,
+            .soldiers-grid,
+            .dungeons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #6c5ce7;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a29bfe;
+        }
+
+        /* Level Up Animation */
+        .level-up {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(10, 10, 10, 0.9);
+            border: 2px solid #6c5ce7;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+            font-family: 'Orbitron', monospace;
+            box-shadow: 0 0 50px rgba(108, 92, 231, 0.8);
+        }
+
+        .level-up.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .level-up-title {
+            color: #6c5ce7;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .level-up-content {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .level-up-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .level-up-stat {
+            background: rgba(108, 92, 231, 0.1);
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .level-up-stat-name {
+            color: #a29bfe;
+            font-size: 0.9rem;
+        }
+
+        .level-up-stat-value {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .close-button {
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .close-button:hover {
+            background: #a29bfe;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">SHADOW MONARCH</div>
+            <div class="system-stats">
+                <div class="stat">
+                    <span class="stat-label">LEVEL</span>
+                    <span class="stat-value">∞</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">RANK</span>
+                    <span class="stat-value">NATIONAL</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">SHADOWS</span>
+                    <span class="stat-value">130,000+</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>SUNG JIN WOO</h1>
+            <p class="hero-subtitle">The Shadow Monarch</p>
+            <div class="system-notification system-border">
+                <div>⚡ SYSTEM NOTIFICATION ⚡</div>
+                <div>You have awakened as the Shadow Monarch</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">HUNTER PROFILE</h2>
+                <p class="section-subtitle">From E-Rank to Shadow Monarch</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Once known as the "World's Weakest Hunter," Sung Jin Woo's life changed forever when he obtained the mysterious System. Through countless battles and trials, he evolved from an E-Rank hunter to the most powerful being on Earth.</p>
+                    <p>As the Shadow Monarch, Jin Woo commands an army of shadow soldiers extracted from the souls of his defeated enemies. His power knows no bounds, and his influence extends across dimensions.</p>
+                    <p>With the ability to level up infinitely and grow stronger with each battle, Jin Woo stands as humanity's greatest protector against the forces that threaten our world.</p>
+                    
+                    <div class="system-window">
+                        <div class="system-header">SYSTEM STATUS</div>
+                        <div class="system-content">
+                            Name: Sung Jin Woo<br>
+                            Class: Shadow Monarch<br>
+                            Level: MAX<br>
+                            Title: Humanity's Strongest Hunter<br>
+                            Guild: Solo
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/sung-jin-woo-wears-supreme-3j9aukyaqayneo52.jpg-slUNMbkdby8R4V2vDaIcpOYe6KSbuZ.jpeg" alt="Sung Jin Woo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Abilities Section -->
+    <section class="abilities">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">MONARCH ABILITIES</h2>
+                <p class="section-subtitle">Powers that transcend human limits</p>
+            </div>
+            <div class="abilities-grid">
+                <div class="ability-card system-border">
+                    <span class="ability-icon">⚔️</span>
+                    <h3 class="ability-name">Shadow Exchange</h3>
+                    <p class="ability-description">Instantly teleport to any shadow soldier's location across vast distances. Perfect for surprise attacks and tactical repositioning.</p>
+                </div>
+                <div class="ability-card system-border">
+                    <span class="ability-icon">👥</span>
+                    <h3 class="ability-name">Shadow Extraction</h3>
+                    <p class="ability-description">Extract the shadows of defeated enemies to create loyal shadow soldiers. The stronger the enemy, the more powerful the shadow.</p>
+                </div>
+                <div class="ability-card system-border">
+                    <span class="ability-icon">🌟</span>
+                    <h3 class="ability-name">Monarch's Domain</h3>
+                    <p class="ability-description">Create a domain where shadow soldiers gain massive stat boosts and enemies are weakened by the overwhelming presence of death.</p>
+                </div>
+                <div class="ability-card system-border">
+                    <span class="ability-icon">⚡</span>
+                    <h3 class="ability-name">Ruler's Authority</h3>
+                    <p class="ability-description">Telekinetic control over objects and enemies. Can crush opponents with invisible force or manipulate the battlefield.</p>
+                </div>
+                <div class="ability-card system-border">
+                    <span class="ability-icon">🗡️</span>
+                    <h3 class="ability-name">Kamish's Wrath</h3>
+                    <p class="ability-description">Summon the devastating power of the Dragon Kamish. A technique capable of destroying entire armies in a single strike.</p>
+                </div>
+                <div class="ability-card system-border">
+                    <span class="ability-icon">🌀</span>
+                    <h3 class="ability-name">Shadow Save</h3>
+                    <p class="ability-description">Store shadow soldiers in a dimensional space and summon them instantly. Can deploy entire armies in seconds.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shadow Soldiers Section -->
+    <section class="shadow-soldiers">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">ELITE SHADOW ARMY</h2>
+                <p class="section-subtitle">The strongest shadows under the Monarch's command</p>
+            </div>
+            <div class="soldiers-grid">
+                <div class="soldier-card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/what-do-you-think-of-beru-as-a-character-v0-mjdkxc6el94d1-sp28MiJBrVj007F48bLyebknQyWsAZ.webp" alt="Beru" class="soldier-image">
+                    <h3 class="soldier-name">BERU</h3>
+                    <span class="soldier-rank">MARSHAL GRADE</span>
+                    <p class="soldier-description">Former Ant King, now Jin Woo's most loyal shadow. Possesses incredible speed, strength, and the ability to fly. His devotion to his master is absolute.</p>
+                </div>
+                <div class="soldier-card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/7fda8d55bb873716812731909a2236e2.jpg-WIhAs8KW1XDdxWLFIQM4gkf4fWfZLm.jpeg" alt="Igris" class="soldier-image">
+                    <h3 class="soldier-name">IGRIS</h3>
+                    <span class="soldier-rank">MARSHAL GRADE</span>
+                    <p class="soldier-description">The Red Knight, a master swordsman with unparalleled combat skills. His blade techniques are legendary among the shadow army.</p>
+                </div>
+                <div class="soldier-card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/501059_tedapvgomi6fxt4d-IRYtgUXu7OmGgbzHAisVFlT3S6agjT.webp" alt="Iron" class="soldier-image">
+                    <h3 class="soldier-name">IRON</h3>
+                    <span class="soldier-rank">ELITE GRADE</span>
+                    <p class="soldier-description">A massive tank-type shadow with incredible defensive capabilities. His shield can withstand attacks from S-Rank monsters.</p>
+                </div>
+                <div class="soldier-card">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/MV5BYmI0Yjg2MDEtYjI5Yy00ZWM0LWJkMWEtMDVmZDFiMDYzMWUwXkEyXkFqcGc%40._V1_QL75_UY281_CR31%2C0%2C500%2C281_.jpg-HoIh9E7elUkbMLrWNLuTJTbw5wTu7V.jpeg" alt="Tank" class="soldier-image">
+                    <h3 class="soldier-name">TANK</h3>
+                    <span class="soldier-rank">ELITE GRADE</span>
+                    <p class="soldier-description">A heavily armored shadow soldier specializing in protection and crowd control. Can withstand massive damage while protecting allies.</p>
+                </div>
+            </div>
+            
+            <div class="system-window">
+                <div class="system-header">SHADOW ARMY STATISTICS</div>
+                <div class="system-content">
+                    Total Shadows: 130,000+<br>
+                    Marshal Grade: 5<br>
+                    Elite Grade: 50+<br>
+                    Normal Grade: 129,945+<br>
+                    <br>
+                    Special Abilities: Shadow Exchange, Shadow Save, Collective Intelligence
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dungeons Section -->
+    <section class="dungeons">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">CONQUERED DUNGEONS</h2>
+                <p class="section-subtitle">The most challenging raids overcome by the Shadow Monarch</p>
+            </div>
+            <div class="dungeons-grid">
+                <div class="dungeon-card">
+                    <div class="dungeon-content">
+                        <h3 class="dungeon-name">DOUBLE DUNGEON</h3>
+                        <span class="dungeon-difficulty">S-RANK GATE</span>
+                        <p class="dungeon-description">The dungeon where Jin Woo first encountered the System. What should have been his death became the beginning of his journey to become the Shadow Monarch.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Completion</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dungeon-card">
+                    <div class="dungeon-content">
+                        <h3 class="dungeon-name">RED GATE</h3>
+                        <span class="dungeon-difficulty">A-RANK GATE</span>
+                        <p class="dungeon-description">A special dungeon that traps hunters inside until all monsters are defeated. Jin Woo single-handedly cleared this gate that would normally require an entire guild.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Completion</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dungeon-card">
+                    <div class="dungeon-content">
+                        <h3 class="dungeon-name">DEMON CASTLE</h3>
+                        <span class="dungeon-difficulty">S-RANK GATE</span>
+                        <p class="dungeon-description">The castle where Jin Woo faced the Demon King Baran. This battle pushed him to his limits and resulted in one of his most powerful shadow soldiers.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Completion</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dungeon-card">
+                    <div class="dungeon-content">
+                        <h3 class="dungeon-name">JEJU ISLAND RAID</h3>
+                        <span class="dungeon-difficulty">S+ RANK GATE</span>
+                        <p class="dungeon-description">The infamous ant hive that had claimed countless hunter lives. Jin Woo cleared this national-level threat alone and gained his most loyal shadow, Beru.</p>
+                        <div class="progress-container">
+                            <div class="progress-label">
+                                <span>Completion</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Section -->
+    <section class="abilities">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">THE SYSTEM</h2>
+                <p class="section-subtitle">The mysterious power that changed everything</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>The System appeared to Jin Woo during a near-death experience in a double dungeon. Unlike other hunters who are born with fixed abilities, the System allows Jin Woo to level up infinitely like a video game character.</p>
+                    <p>Through daily quests, dungeon raids, and defeating powerful enemies, Jin Woo continuously grows stronger. The System provides him with stat points, new skills, and access to the Shadow Monarch's true power.</p>
+                    
+                    <div class="system-window">
+                        <div class="system-header">DAILY QUEST COMPLETED</div>
+                        <div class="system-content">
+                            ✓ 100 Push-ups<br>
+                            ✓ 100 Sit-ups<br>
+                            ✓ 100 Squats<br>
+                            ✓ 10km Run<br>
+                            <br>
+                            Reward: +3 All Stats
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Sung-e-varias-sombras-suas-olhando-para-um-lugar-ao-mesmo-tempo-f1vM0I2zaNtuhwwsAjWXIcoaxH63u2.webp" alt="Jin Woo with Shadow Army">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Level Up Notification -->
+    <div class="level-up" id="levelUp">
+        <h3 class="level-up-title">LEVEL UP!</h3>
+        <div class="level-up-content">You have reached level 100!</div>
+        <div class="level-up-stats">
+            <div class="level-up-stat">
+                <div class="level-up-stat-name">STRENGTH</div>
+                <div class="level-up-stat-value">+10</div>
+            </div>
+            <div class="level-up-stat">
+                <div class="level-up-stat-name">AGILITY</div>
+                <div class="level-up-stat-value">+8</div>
+            </div>
+            <div class="level-up-stat">
+                <div class="level-up-stat-name">INTELLIGENCE</div>
+                <div class="level-up-stat-value">+5</div>
+            </div>
+            <div class="level-up-stat">
+                <div class="level-up-stat-name">PERCEPTION</div>
+                <div class="level-up-stat-value">+7</div>
+            </div>
+        </div>
+        <button class="close-button" id="closeButton">CONFIRM</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Shadow Monarch Archives | Sung Jin Woo - Humanity's Strongest Hunter</p>
+            <p style="margin-top: 0.5rem; color: #6c5ce7;">「 I alone level up 」</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Level Up Notification
+            const levelUp = document.getElementById('levelUp');
+            const closeButton = document.getElementById('closeButton');
+            
+            // Show level up notification when scrolled to a certain point
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 1000 && window.scrollY < 1100) {
+                    levelUp.classList.add('show');
+                }
+            });
+            
+            // Close level up notification
+            closeButton.addEventListener('click', function() {
+                levelUp.classList.remove('show');
+            });
+            
+            // Add glowing effect to ability cards on hover
+            const abilityCards = document.querySelectorAll('.ability-card');
+            abilityCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = '0 20px 40px rgba(108, 92, 231, 0.6)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '';
+                });
+            });
+
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const animateProgressBars = () => {
+                progressBars.forEach(bar => {
+                    const rect = bar.getBoundingClientRect();
+                    const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+                    
+                    if (isVisible) {
+                        const width = bar.getAttribute('data-width') || '100%';
+                        bar.style.width = width;
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', animateProgressBars);
+            animateProgressBars(); // Initial check
+            
+            // Smooth scrolling for internal links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
